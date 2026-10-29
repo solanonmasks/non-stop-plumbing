@@ -1,0 +1,73 @@
+/* ------------------------------------------------------------
+   Colours and fonts (change them here and they update everywhere)
+   ------------------------------------------------------------ */
+:root {
+  --navy: #0A1220;
+  --raised: #121D30;
+  --rule: #1E2B40;
+  --footer: #060C16;
+  --red: #E8452C;
+  --blue: #1F8FDB;
+  --light-blue: #5BB8F5;
+  --light: #EEF2F7;
+  --text-dark-bg: #C4CEDB;
+  --text-light-bg: #3A475A;
+  --muted: #9AA8BC;
+  --star: #FFB547;
+  --card-rule: #C9D2DE;
+  --input-rule: #A9B5C5;
+  --white: #FFFFFF;
+
+  --font-head: 'Sora', sans-serif;
+  --font-body: 'Inter Tight', sans-serif;
+
+  --max: 1440px;
+  --gutter: clamp(18px, 4vw, 48px);
+  --section-pad: clamp(88px, 10vw, 150px);
+  --ease: cubic-bezier(.16, .84, .3, 1);
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--navy); color: var(--light); }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--light-blue); }
+a:hover { color: var(--white); }
+input, textarea, button { font: inherit; }
+img { max-width: 100%; }
+h1, h2, h3, p, figure { margin: 0; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+:focus-visible { outline: 3px solid var(--light-blue); outline-offset: 2px; }
+
+/* ------------------------------------------------------------
+   Motion
+   ------------------------------------------------------------ */
+@keyframes nsRise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes nsFlow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* JS adds .js to <html>, so without JS everything stays visible. */
+.js [data-hero] { animation: nsRise 1s var(--ease) both; }
+.js [data-reveal].is-hidden { opacity: 0; transform: translateY(28px); }
+[data-reveal] { transition: opacity 1s var(--ease) var(--d, 0s), transform 1s var(--ease) var(--d, 0s); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js [data-reveal].is-hidden { opacity: 1; transform: none; }
+  .pipes path { stroke-dashoffset: 0 !important; }
+}
